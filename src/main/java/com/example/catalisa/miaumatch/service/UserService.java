@@ -34,6 +34,12 @@ public class UserService {
         if(user != null){
             user.setPassword(userModel.getPassword());
         }
+        if(user != null){
+            user.setTelefone(userModel.getTelefone());
+        }
+        if(user != null){
+            user.setNome(userModel.getNome());
+        }
 
         return userRepository.save(user);
     }

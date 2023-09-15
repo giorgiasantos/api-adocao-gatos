@@ -16,8 +16,8 @@ public class AdocaoService {
     @Autowired
     AdocaoRepository adocaoRepository;
 
-    @Autowired
-    GatoRepository gatoRepository;
+//    @Autowired
+//    GatoRepository gatoRepository;
 
     public List<AdocaoModel> getAll(){
         return adocaoRepository.findAll();
@@ -31,14 +31,18 @@ public class AdocaoService {
         return Optional.empty();
     }
 
-    public AdocaoModel cadastrar(AdocaoModel adocaoModel){
-        List<GatoModel> gatos = adocaoModel.getGatos();
+//    public AdocaoModel cadastrar(AdocaoModel adocaoModel){
+//        List<GatoModel> gatos = adocaoModel.getGatos();
+//
+//        for (GatoModel gato : adocaoModel.getGatos()) {
+//            if (gato.isDisponivelAdocao()) {
+//                adocaoModel.setGatos(gatos);
+//            }
+//        }
+//        return adocaoRepository.save(adocaoModel);
+//    }
 
-        for (GatoModel gato : adocaoModel.getGatos()) {
-            if (gato.isDisponivelAdocao()) {
-                adocaoModel.setGatos(gatos);
-            }
-        }
+    public AdocaoModel cadastrar (AdocaoModel adocaoModel){
         return adocaoRepository.save(adocaoModel);
     }
 

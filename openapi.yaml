@@ -1,0 +1,588 @@
+openapi: 3.0.1
+info:
+  title: 'API para adoção de gatos de rua. '
+  description: 'API para cadastro e adoção de gatos de rua. '
+  version: '1'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/users/{id}:
+    put:
+      tags:
+        - users
+      summary: 'Altera o cadastro de um usuário. '
+      operationId: alterar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+        - users
+      summary: 'Deleta o cadastro de um usuário. '
+      operationId: deletar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/gatos/{id}:
+    put:
+      tags:
+        - gatos
+      summary: 'Altera o cadastro de um gato. '
+      operationId: alterarCadastro
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatoModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+        - gatos
+      summary: 'Deleta o cadastro de um gato. '
+      operationId: deletar_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/adocao/{id}:
+    put:
+      tags:
+        - adocao
+      summary: 'Altera o cadastro de uma adoção. '
+      operationId: alterarCadastro_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdocaoModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    delete:
+      tags:
+        - adocao
+      summary: 'Deleta o cadastro de uma adoção. '
+      operationId: deletar_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/users:
+    get:
+      tags:
+        - users
+      summary: 'Lista todos os usuários. '
+      operationId: listarTodos
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+        - users
+      summary: 'Cadastra um novo usuário. '
+      operationId: cadastrar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/gatos:
+    get:
+      tags:
+        - gatos
+      summary: 'Lista todos os gatos. '
+      operationId: listarTodos_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GatoModel'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+        - gatos
+      summary: 'Cadastra um gato. '
+      operationId: criarCadastro
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatoModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/adocao:
+    get:
+      tags:
+        - adocao
+      summary: 'Lista todos as as adoções. '
+      operationId: buscarTodas
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdocaoModel'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+        - adocao
+      summary: 'Cadastra uma nova adoção. '
+      operationId: criarCadastro_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdocaoModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/users/buscaId/{id}:
+    get:
+      tags:
+        - users
+      summary: 'Busca um usuário por ID. '
+      operationId: buscarPorId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/gatos/buscaNome/{nome}:
+    get:
+      tags:
+        - gatos
+      summary: 'Busca um gato pelo nome. '
+      operationId: buscarPorNome
+      parameters:
+        - name: nome
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/gatos/buscaId/{id}:
+    get:
+      tags:
+        - gatos
+      summary: 'Busca um gato por ID. '
+      operationId: buscarPorId_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/adocao/buscaId/{id}:
+    get:
+      tags:
+        - adocao
+      summary: 'Busca uma adoção por ID. '
+      operationId: buscarPorId_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    GrantedAuthority:
+      type: object
+      properties:
+        authority:
+          type: string
+    RoleModel:
+      type: object
+      properties:
+        id_role:
+          type: integer
+          format: int64
+        role:
+          type: string
+          enum:
+            - ROLE_USER
+            - ROLE_ADMIN
+        authority:
+          type: string
+    UserModel:
+      type: object
+      properties:
+        id_user:
+          type: integer
+          format: int64
+        username:
+          type: string
+        password:
+          type: string
+        nome:
+          type: string
+        telefone:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleModel'
+        enabled:
+          type: boolean
+        authorities:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrantedAuthority'
+        accountNonExpired:
+          type: boolean
+        credentialsNonExpired:
+          type: boolean
+        accountNonLocked:
+          type: boolean
+    GatoModel:
+      type: object
+      properties:
+        id_gato:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        idade:
+          type: integer
+          format: int32
+        sexo:
+          type: string
+        historia:
+          type: string
+        castrado:
+          type: boolean
+        disponivelAdocao:
+          type: boolean
+        urlFoto:
+          type: string
+    AdocaoModel:
+      type: object
+      properties:
+        id_adocao:
+          type: integer
+          format: int64
+        data:
+          type: string
+          format: date
+        user:
+          $ref: '#/components/schemas/UserModel'
+        gatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatoModel'
