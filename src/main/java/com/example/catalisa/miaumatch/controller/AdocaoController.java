@@ -1,7 +1,10 @@
 package com.example.catalisa.miaumatch.controller;
 
 import com.example.catalisa.miaumatch.model.AdocaoModel;
+import com.example.catalisa.miaumatch.model.GatoModel;
+import com.example.catalisa.miaumatch.repository.GatoRepository;
 import com.example.catalisa.miaumatch.service.AdocaoService;
+import com.example.catalisa.miaumatch.service.GatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,12 @@ import java.util.Optional;
 public class AdocaoController {
     @Autowired
     AdocaoService adocaoService;
+
+//    @Autowired
+//    GatoService gatoService;
+
+//    @Autowired
+//    GatoRepository gatoRepository;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
@@ -41,8 +50,13 @@ public class AdocaoController {
     @PostMapping
     public ResponseEntity<?> criarCadastro(@RequestBody AdocaoModel adocaoModel){
 
-        AdocaoModel adocao = adocaoService.cadastrar(adocaoModel);
+        for (GatoModel gato : adocaoModel.getGatos()) {
+            if (!gato.isDisponivelAdocao()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Ops! Parece que o gatinho que você escolheu não está disponível. ");
+            }
+        }
 
+        adocaoService.cadastrar(adocaoModel);
         return ResponseEntity.ok("Oba!  Cadastro realizado com sucesso! ");
     }
 

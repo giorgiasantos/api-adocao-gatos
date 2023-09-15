@@ -1,10 +1,7 @@
 package com.example.catalisa.miaumatch.model;
 
-import com.example.catalisa.miaumatch.enums.RoleModel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.catalisa.miaumatch.enums.RoleEnum;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,10 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "TB_USERS")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class UserModel implements UserDetails {
 
@@ -29,6 +25,10 @@ public class UserModel implements UserDetails {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String nome;
+    @Column(nullable = false)
+    private String telefone;
 
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES", joinColumns = @JoinColumn(name = "id_user"),inverseJoinColumns = @JoinColumn(name = "id_role"))
@@ -36,8 +36,7 @@ public class UserModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return this.roles;
-        return null;
+        return this.roles;
     }
 
     @Override

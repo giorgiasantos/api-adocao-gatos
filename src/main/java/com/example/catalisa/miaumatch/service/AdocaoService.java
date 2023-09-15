@@ -3,9 +3,11 @@ package com.example.catalisa.miaumatch.service;
 import com.example.catalisa.miaumatch.model.AdocaoModel;
 import com.example.catalisa.miaumatch.model.GatoModel;
 import com.example.catalisa.miaumatch.repository.AdocaoRepository;
+import com.example.catalisa.miaumatch.repository.GatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class AdocaoService {
     @Autowired
     AdocaoRepository adocaoRepository;
+
+    @Autowired
+    GatoRepository gatoRepository;
 
     public List<AdocaoModel> getAll(){
         return adocaoRepository.findAll();
@@ -27,10 +32,18 @@ public class AdocaoService {
     }
 
     public AdocaoModel cadastrar(AdocaoModel adocaoModel){
+        List<GatoModel> gatos = adocaoModel.getGatos();
+
+        for (GatoModel gato : adocaoModel.getGatos()) {
+            if (gato.isDisponivelAdocao()) {
+                adocaoModel.setGatos(gatos);
+            }
+        }
         return adocaoRepository.save(adocaoModel);
     }
 
     public AdocaoModel alterar (Long id, AdocaoModel adocaoModel){
+
         AdocaoModel adocao = adocaoRepository.findById(id).get();
 
         if(adocao != null){

@@ -24,4 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new User(userModel.getUsername(),userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
     }
+
+
+
 }

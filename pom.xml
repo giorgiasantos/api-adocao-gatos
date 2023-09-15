@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.catalisa</groupId>
-	<artifactId>miaumatch</artifactId>
+	<artifactId>miaumatcher</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>miaumatch</name>
+	<name>miaumatcher</name>
 	<description>Projeto de API REST para adoção de gatos de rua</description>
 	<properties>
 		<java.version>11</java.version>
