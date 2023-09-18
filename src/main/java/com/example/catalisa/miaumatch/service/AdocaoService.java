@@ -1,9 +1,10 @@
 package com.example.catalisa.miaumatch.service;
 
+import com.example.catalisa.miaumatch.mappers.AdocaoMapper;
 import com.example.catalisa.miaumatch.model.AdocaoModel;
-import com.example.catalisa.miaumatch.model.GatoModel;
+import com.example.catalisa.miaumatch.model.dtos.AdocaoDTO;
+import com.example.catalisa.miaumatch.model.dtos.AdocaoDTOView;
 import com.example.catalisa.miaumatch.repository.AdocaoRepository;
-import com.example.catalisa.miaumatch.repository.GatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,34 +17,31 @@ public class AdocaoService {
     @Autowired
     AdocaoRepository adocaoRepository;
 
-//    @Autowired
-//    GatoRepository gatoRepository;
 
-    public List<AdocaoModel> getAll(){
-        return adocaoRepository.findAll();
+    public List<AdocaoDTOView> getAll(){
+        List<AdocaoModel> adocoes = adocaoRepository.findAll();
+        List<AdocaoDTOView> adocoesDTO = new ArrayList<>();
+
+        for(AdocaoModel adocao : adocoes){
+            adocoesDTO.add(new AdocaoDTOView(adocao));
+        }
+
+        return adocoesDTO;
     }
 
-    public Optional<AdocaoModel> getById(Long id){
+    public Optional<AdocaoDTOView> getById(Long id){
         Optional<AdocaoModel> adocao = adocaoRepository.findById(id);
 
-        if(adocao.isPresent()) return adocao;
+        if(adocao.isPresent()) return Optional.of(new AdocaoDTOView(adocao.get()));
 
         return Optional.empty();
     }
 
-//    public AdocaoModel cadastrar(AdocaoModel adocaoModel){
-//        List<GatoModel> gatos = adocaoModel.getGatos();
-//
-//        for (GatoModel gato : adocaoModel.getGatos()) {
-//            if (gato.isDisponivelAdocao()) {
-//                adocaoModel.setGatos(gatos);
-//            }
-//        }
-//        return adocaoRepository.save(adocaoModel);
-//    }
+    public AdocaoDTO cadastrar (AdocaoDTO adocaoDTO){
+        AdocaoModel novaAdocao = AdocaoMapper.INSTANCE.adocaoDTOToAdocaoModel(adocaoDTO);
+        adocaoRepository.save(novaAdocao);
 
-    public AdocaoModel cadastrar (AdocaoModel adocaoModel){
-        return adocaoRepository.save(adocaoModel);
+        return new AdocaoDTO(novaAdocao);
     }
 
     public AdocaoModel alterar (Long id, AdocaoModel adocaoModel){
@@ -57,7 +55,7 @@ public class AdocaoService {
             adocao.setData(adocaoModel.getData());
         }
         if(adocao != null){
-            adocao.setGatos(adocaoModel.getGatos());
+            adocao.setGato(adocaoModel.getGato());
         }
 
         return adocaoRepository.save(adocao);

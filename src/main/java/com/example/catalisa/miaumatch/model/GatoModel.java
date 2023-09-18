@@ -27,8 +27,6 @@ public class GatoModel {
     @Column(nullable = false)
     private boolean castrado;
     @Column(nullable = false)
-    private boolean disponivelAdocao;
-    @Column(nullable = false)
     private String urlFoto;
 
 }

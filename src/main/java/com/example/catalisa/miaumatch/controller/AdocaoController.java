@@ -1,10 +1,10 @@
 package com.example.catalisa.miaumatch.controller;
 
+import com.example.catalisa.miaumatch.mappers.AdocaoMapper;
 import com.example.catalisa.miaumatch.model.AdocaoModel;
-import com.example.catalisa.miaumatch.model.GatoModel;
-import com.example.catalisa.miaumatch.repository.GatoRepository;
+import com.example.catalisa.miaumatch.model.dtos.AdocaoDTO;
+import com.example.catalisa.miaumatch.model.dtos.AdocaoDTOView;
 import com.example.catalisa.miaumatch.service.AdocaoService;
-import com.example.catalisa.miaumatch.service.GatoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,17 +26,12 @@ public class AdocaoController {
     @Autowired
     AdocaoService adocaoService;
 
-//    @Autowired
-//    GatoService gatoService;
-
-//    @Autowired
-//    GatoRepository gatoRepository;
 
     @Operation(summary = "Lista todos as as adoções. ", method = "GET")
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "OK"))
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
-    public List<AdocaoModel> buscarTodas(){
+    public List<AdocaoDTOView> buscarTodas(){
         return adocaoService.getAll();
     }
 
@@ -45,43 +40,29 @@ public class AdocaoController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(path = "/buscaId/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id){
-        Optional<AdocaoModel> adocaoModel = adocaoService.getById(id);
+        Optional<AdocaoDTOView> adocaoModel = adocaoService.getById(id);
 
         if(adocaoModel.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ops! O cadastro não foi encontrado.");
         }
 
-        return ResponseEntity.ok().body(adocaoModel.get());
+        return ResponseEntity.ok().body(adocaoModel);
     }
-
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-//    @PostMapping
-//    public ResponseEntity<?> criarCadastro(@RequestBody AdocaoModel adocaoModel){
-//
-//        AdocaoModel adocao = adocaoService.cadastrar(adocaoModel);
-//
-//        for (GatoModel gato : adocaoModel.getGatos()) {
-//            if (!gato.isDisponivelAdocao()) {
-//                return ResponseEntity.status(HttpStatus.CONFLICT).body("Ops! Parece que o gatinho que você escolheu não está disponível. ");
-//            }
-//        }
-//
-//        return ResponseEntity.ok("Oba!  Cadastro realizado com sucesso! " + adocao);
-//    }
 
     @Operation(summary = "Cadastra uma nova adoção. ", method = "POST")
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "OK"))
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
-    public ResponseEntity<?> criarCadastro(@RequestBody AdocaoModel adocaoModel){
-        AdocaoModel adocao = adocaoService.cadastrar(adocaoModel);
+    public ResponseEntity<?> criarCadastro(@RequestBody AdocaoDTO adocaoDTO){
 
-        return ResponseEntity.ok("Oba!  Cadastro realizado com sucesso! " + adocao);
+        AdocaoModel novaAdocao = AdocaoMapper.INSTANCE.adocaoDTOToAdocaoModel(adocaoDTO);
+        AdocaoDTO novaAdocaoDTO = adocaoService.cadastrar(new AdocaoDTO(novaAdocao));
+        return ResponseEntity.ok("Oba!  Cadastro realizado com sucesso! " + novaAdocaoDTO);
     }
 
     @Operation(summary = "Altera o cadastro de uma adoção. ", method = "PUT")
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "OK"))
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> alterarCadastro(@PathVariable Long id, @RequestBody AdocaoModel adocaoModel){
 

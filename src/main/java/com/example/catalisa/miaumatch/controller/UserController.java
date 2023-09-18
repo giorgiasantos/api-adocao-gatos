@@ -1,6 +1,9 @@
 package com.example.catalisa.miaumatch.controller;
 
+import com.example.catalisa.miaumatch.mappers.UserMapper;
 import com.example.catalisa.miaumatch.model.UserModel;
+import com.example.catalisa.miaumatch.model.dtos.UserDTO;
+import com.example.catalisa.miaumatch.model.dtos.UserDTOView;
 import com.example.catalisa.miaumatch.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,7 +30,7 @@ public class UserController {
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "OK"))
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping
-    public List<UserModel> listarTodos(){
+    public List<UserDTOView> listarTodos(){
         return userService.getAll();
     }
 
@@ -36,7 +39,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/buscaId/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id){
-        Optional<UserModel> user = userService.getById(id);
+        Optional<UserDTOView> user = userService.getById(id);
 
         if(user.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ops! Usuário não encontrado. ");
 
@@ -47,9 +50,9 @@ public class UserController {
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "OK"))
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ResponseEntity<?> cadastrar (@RequestBody UserModel userModel){
-
-        userService.cadastrar(userModel);
+    public ResponseEntity<?> cadastrar (@RequestBody UserDTO userDTO){
+        UserModel novoUser = UserMapper.INSTANCE.userDTOToUserModel(userDTO);
+        UserDTO novoUserDTO = userService.cadastrar(new UserDTO(novoUser));
 
         return ResponseEntity.ok().body("Oba!  Cadastro realizado com sucesso! " );
     }

@@ -25,6 +25,7 @@ public class GatoService {
     }
 
     public Optional<List<GatoModel>> getByName(String nome){
+
         Optional<List<GatoModel>> gato = gatoRepository.findByName(nome);
 
         if(gato.isPresent()) return gato;
@@ -54,9 +55,6 @@ public class GatoService {
         }
         if(gato != null){
             gato.setCastrado(gatoModel.isCastrado());
-        }
-        if(gato != null){
-            gato.setDisponivelAdocao(gatoModel.isDisponivelAdocao());
         }
         if(gato != null){
             gato.setUrlFoto(gatoModel.getUrlFoto());

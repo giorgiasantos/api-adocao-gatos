@@ -4,8 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "TB_ADOCOES")
@@ -20,16 +19,12 @@ public class AdocaoModel {
     @Column(nullable = false)
     private LocalDate data;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    private UserModel user;
+    @OneToOne
+    @JoinColumn(name = "gato_id")
+    private GatoModel gato;
 
-    @ManyToMany
-    @JoinTable(
-            name = "adocao_gato",
-            joinColumns = @JoinColumn(name = "id_adocao"),
-            inverseJoinColumns = @JoinColumn(name = "id_gato")
-    )
-    private List<GatoModel> gatos = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserModel user;
 
 }
