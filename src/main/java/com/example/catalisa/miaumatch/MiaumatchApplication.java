@@ -12,7 +12,6 @@ public class MiaumatchApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MiaumatchApplication.class, args);
-		//System.out.println(new BCryptPasswordEncoder().encode("2222"));
 	}
 
 }

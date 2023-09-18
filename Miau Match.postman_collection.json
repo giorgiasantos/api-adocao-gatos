@@ -11,7 +11,7 @@
 			"name": "Gatos",
 			"item": [
 				{
-					"name": "Get all",
+					"name": "Listar gatos",
 					"event": [
 						{
 							"listen": "test",
@@ -48,7 +48,7 @@
 					"response": []
 				},
 				{
-					"name": "Get by nome",
+					"name": "Buscar gato por nome",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -56,7 +56,7 @@
 					"response": []
 				},
 				{
-					"name": "get by id",
+					"name": "Buscar gato por ID",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -204,7 +204,7 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "Get all",
+					"name": "Listar usuários",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -212,7 +212,7 @@
 					"response": []
 				},
 				{
-					"name": "Get by id",
+					"name": "Buscar usuario por id",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -220,7 +220,7 @@
 					"response": []
 				},
 				{
-					"name": "Criar user",
+					"name": "Criar usuario",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -228,7 +228,7 @@
 					"response": []
 				},
 				{
-					"name": "Alterar user",
+					"name": "Alterar usuario",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -236,7 +236,7 @@
 					"response": []
 				},
 				{
-					"name": "Deletar user",
+					"name": "Deletar usuario",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -249,7 +249,7 @@
 			"name": "Adocoes",
 			"item": [
 				{
-					"name": "Get all",
+					"name": "Listar adoções",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -258,6 +258,14 @@
 				},
 				{
 					"name": "Cadastrar adoção",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar adocao",
 					"request": {
 						"method": "GET",
 						"header": []

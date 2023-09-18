@@ -216,7 +216,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserModel'
+                  $ref: '#/components/schemas/UserDTOView'
         '400':
           description: Bad Request
           content:
@@ -238,7 +238,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserModel'
+              $ref: '#/components/schemas/UserDTO'
         required: true
       responses:
         '200':
@@ -330,7 +330,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AdocaoModel'
+                  $ref: '#/components/schemas/AdocaoDTOView'
         '400':
           description: Bad Request
           content:
@@ -352,7 +352,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdocaoModel'
+              $ref: '#/components/schemas/AdocaoDTO'
         required: true
       responses:
         '200':
@@ -540,15 +540,15 @@ components:
             $ref: '#/components/schemas/RoleModel'
         enabled:
           type: boolean
+        accountNonLocked:
+          type: boolean
         authorities:
           type: array
           items:
             $ref: '#/components/schemas/GrantedAuthority'
-        accountNonExpired:
-          type: boolean
         credentialsNonExpired:
           type: boolean
-        accountNonLocked:
+        accountNonExpired:
           type: boolean
     GatoModel:
       type: object
@@ -567,8 +567,6 @@ components:
           type: string
         castrado:
           type: boolean
-        disponivelAdocao:
-          type: boolean
         urlFoto:
           type: string
     AdocaoModel:
@@ -580,9 +578,59 @@ components:
         data:
           type: string
           format: date
+        gato:
+          $ref: '#/components/schemas/GatoModel'
         user:
           $ref: '#/components/schemas/UserModel'
-        gatos:
+    UserDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        nome:
+          type: string
+        telefone:
+          type: string
+        roles:
           type: array
           items:
-            $ref: '#/components/schemas/GatoModel'
+            $ref: '#/components/schemas/RoleModel'
+    AdocaoDTO:
+      type: object
+      properties:
+        data:
+          type: string
+          format: date
+        gato:
+          $ref: '#/components/schemas/GatoModel'
+        user:
+          $ref: '#/components/schemas/UserModel'
+    UserDTOView:
+      type: object
+      properties:
+        id_user:
+          type: integer
+          format: int64
+        username:
+          type: string
+        nome:
+          type: string
+        telefone:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleModel'
+    AdocaoDTOView:
+      type: object
+      properties:
+        id_adocao:
+          type: integer
+          format: int64
+        data:
+          type: string
+          format: date
+        gato:
+          $ref: '#/components/schemas/GatoModel'
